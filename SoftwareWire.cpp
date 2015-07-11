@@ -120,7 +120,7 @@
 //
 // The pins are not activated until begin() is called.
 //
-SoftwareWire::SoftwareWire(portmask_t sdaPin, portmask_t sclPin, boolean pullups, boolean detectClockStretch)
+SoftwareWire::SoftwareWire(PortValue_t sdaPin, PortValue_t sclPin, boolean pullups, boolean detectClockStretch)
 {
   _sdaPin = sdaPin;
   _sclPin = sclPin;
@@ -135,7 +135,7 @@ SoftwareWire::SoftwareWire(portmask_t sdaPin, portmask_t sclPin, boolean pullups
   setTimeout( 1000L);        
 
   // Turn Arduino pin numbers into PORTx, DDRx, and PINx
-  portpointer_t port;
+  PortAddr_t port;
 
   port = digitalPinToPort(_sdaPin);
   _sdaBitMask  = digitalPinToBitMask(_sdaPin);
@@ -549,17 +549,17 @@ void SoftwareWire::printStatus( HardwareSerial& Ser)
   Ser.print(F("  _sclBitMast = 0x"));
   Ser.println(_sclBitMask, HEX);
   Ser.print(F("  _sdaPortReg = "));  
-  Ser.println( (portpointervalue_t) _sdaPortReg, HEX);
+  Ser.println( (PortAddr_t) _sdaPortReg, HEX);
   Ser.print(F("  _sclPortReg = "));  
-  Ser.println( (portpointervalue_t) _sclPortReg, HEX);
+  Ser.println( (PortAddr_t) _sclPortReg, HEX);
   Ser.print(F("  _sdaDirReg = "));  
-  Ser.println( (portpointervalue_t) _sdaDirReg, HEX);
+  Ser.println( (PortAddr_t) _sdaDirReg, HEX);
   Ser.print(F("  _sclDirReg = "));  
-  Ser.println( (portpointervalue_t) _sclDirReg, HEX);
+  Ser.println( (PortAddr_t) _sclDirReg, HEX);
   Ser.print(F("  _sdaPinReg = "));  
-  Ser.println( (portpointervalue_t) _sdaPinReg, HEX);
+  Ser.println( (PortAddr_t) _sdaPinReg, HEX);
   Ser.print(F("  _sclPinReg = "));  
-  Ser.println( (portpointervalue_t) _sclPinReg, HEX);
+  Ser.println( (PortAddr_t) _sclPinReg, HEX);
   
   Ser.print(F("  line state sda = "));
   Ser.println(i2c_sda_read());

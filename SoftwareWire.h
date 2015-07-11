@@ -33,16 +33,16 @@
 #define SOFTWAREWIRE_BUFSIZE 32        // same as buffer size of Arduino Wire library
 
 #ifdef __AVR__
-#define portmask_t uint8_t
-#define portpointer_t uint8_t
-#define portpointervalue_t uint16_t
+#define PortValue_t uint8_t
+#define PortAddr_t uint16_t
+#define Register_t volatile PortValue_t *
 #endif // __AVR__
 #ifdef __F32C__
-// #define portregister_t volatile uint32_t *
-#define portmask_t uint32_t
-#define portpointer_t volatile uint32_t *
-#define portpointervalue_t uint32_t
-// crude f32c workaround
+// defined in F32C core
+//#define PortValue_t uint32_t
+//#define PortAddr_t uint32_t
+//#define Register_t volatile uint32_t *
+// crude f32c workaround - copy to your *.ino sketch
 #if 0
 void * __dso_handle;
 __BEGIN_DECLS
@@ -54,7 +54,7 @@ __END_DECLS;
 class SoftwareWire
 {
 public:
-  SoftwareWire(portmask_t sdaPin, portmask_t sclPin, boolean pullups = true, boolean detectClockStretch = true);
+  SoftwareWire(PortValue_t sdaPin, PortValue_t sclPin, boolean pullups = true, boolean detectClockStretch = true);
   ~SoftwareWire();
   void end();
   
@@ -82,17 +82,17 @@ public:
 private:
   // per object data
 
-  portmask_t _sdaPin;
-  portmask_t _sclPin;
-  portmask_t _sdaBitMask;
-  portmask_t _sclBitMask;
+  PortValue_t _sdaPin;
+  PortValue_t _sclPin;
+  PortValue_t _sdaBitMask;
+  PortValue_t _sclBitMask;
 
-  volatile portmask_t *_sdaPortReg;
-  volatile portmask_t *_sclPortReg;
-  volatile portmask_t *_sdaDirReg;
-  volatile portmask_t *_sclDirReg;
-  volatile portmask_t *_sdaPinReg;
-  volatile portmask_t *_sclPinReg;
+  volatile PortValue_t *_sdaPortReg;
+  volatile PortValue_t *_sclPortReg;
+  volatile PortValue_t *_sdaDirReg;
+  volatile PortValue_t *_sclDirReg;
+  volatile PortValue_t *_sdaPinReg;
+  volatile PortValue_t *_sclPinReg;
 
   uint8_t _transmission;      // transmission status, returned by endTransmission(). 0 is no error.
   uint16_t _i2cdelay;         // delay in micro seconds for sda and scl bits.
