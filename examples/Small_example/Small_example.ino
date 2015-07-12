@@ -14,16 +14,7 @@
 // Adapted to show usage of the SoftwareWire library
 // ---------------------------------
 
-
 #include <SoftwareWire.h>
-
-// crude f32c workaround
-#ifdef __F32C__
-void * __dso_handle;
-__BEGIN_DECLS
-int __cxa_atexit(void (destructor) (void *), void *arg, void *dso) { return (0);}
-__END_DECLS;
-#endif
 
 // SoftwareWire constructor.
 // Parameters:

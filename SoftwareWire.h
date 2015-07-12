@@ -42,13 +42,6 @@
 //#define PortValue_t uint32_t
 //#define PortAddr_t uint32_t
 //#define Register_t volatile uint32_t *
-// crude f32c workaround - copy to your *.ino sketch
-#if 0
-void * __dso_handle;
-__BEGIN_DECLS
-int __cxa_atexit(void (destructor) (void *), void *arg, void *dso) { return (0);}
-__END_DECLS;
-#endif
 #endif // __F32C__
 
 class SoftwareWire

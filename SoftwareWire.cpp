@@ -76,6 +76,14 @@
 
 #include "SoftwareWire.h"
 
+// crude f32c workaround
+// todo: move this in core
+#ifdef __F32C__
+void * __dso_handle;
+__BEGIN_DECLS
+int __cxa_atexit(void (destructor) (void *), void *arg, void *dso) { return (0);}
+__END_DECLS;
+#endif
 
 // Sets SDA low and drives output.
 // The SDA may not be HIGH output, so first the output register is cleared 
